@@ -2,8 +2,9 @@ package interfaz;
 
 import dominio.Libreta;
 import dominio.Contacto;
+import java.io.*;
 
-public class Interfaz {
+public class Interfaz implements Serializable {
     private Libreta libreta;
 
     public Interfaz() {
