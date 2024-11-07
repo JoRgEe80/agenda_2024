@@ -1,15 +1,19 @@
 package dominio;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Libreta{
     private String nombre;
-    private String apellidos;
     private ArrayList<Contacto> contactos;
 
     public Libreta() {
         contactos = new ArrayList<>();
         nombre="";
+        cargarContactos();
     }
     public Contacto buscar(Contacto c){
         int p=contactos.indexOf(c);
@@ -38,6 +42,7 @@ public class Libreta{
     public boolean borrar(Contacto c){
         if(contactos.contains(c)){
             contactos.remove(c);
+            volcarContactos();
             return true;
         }
         return false;
@@ -45,15 +50,15 @@ public class Libreta{
 
     public Libreta annadirContacto(Contacto contacto) {
         contactos.add(contacto);
+        volcarContactos();
         return this;
     }
-    public boolean modificarContacto(String nuevoNombre, String nuevosApellidos, String nuevoTelefono, String nuevoEmail) {
+    public boolean modificarContacto(String nombre, String apellidos, String nuevoTelefono, String nuevoEmail) {
         Contacto contacto = buscar(nombre, apellidos);
         if (contacto != null) { 
         contacto.setTelefono(nuevoTelefono);
-        contacto.setNombre(nuevoNombre); 
-        contacto.setApellidos(nuevosApellidos);
         contacto.setEmail(nuevoEmail);
+        volcarContactos();
         return true;
         } 
     return false;
@@ -70,4 +75,36 @@ public class Libreta{
         }
         return sb.toString();
     }
+    private void cargarContactos(){
+        try{
+            File fichero = new File("libreta.csv");
+    
+            if (!fichero.exists()) {
+                System.out.println("La libreta no extiste");
+                return;
+            }
+            Scanner sc = new Scanner(fichero);
+            sc.useDelimiter("[,\n]");
+            while(sc.hasNext()){
+                Contacto c = new Contacto(sc.next(),sc.next(),sc.next(),sc.next());
+                contactos.add(c);
+            }
+            sc.close();
+        }catch(IOException ex){
+            System.out.println("No hay contactos registrados");
+        }
+
+    }
+     public void volcarContactos(){
+    try{
+        FileWriter fw = new FileWriter("libreta.csv");
+        for(Contacto c : contactos){
+            fw.write(c.getNombre() + "," +c.getApellidos() + "," +c.getTelefono()+","+c.getEmail()+"\n");
+        }
+        fw.close();
+        }catch(IOException ex){
+        System.err.println(ex);
+        }
+    }
+
 }

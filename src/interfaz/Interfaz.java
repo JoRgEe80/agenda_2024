@@ -33,6 +33,7 @@ public class Interfaz implements Serializable {
         }else if (args[0].equalsIgnoreCase("remove")){
             libreta.borrar(new Contacto(args[1],args[2]));
         }else if (args[0].equalsIgnoreCase("modify")){
+            libreta.modificarContacto(args[1], args[2], args[3], args[4]);
 
         }else{
             System.out.println("Comando no reconocido. Usa 'help' para ver las instrucciones disponibles.");
