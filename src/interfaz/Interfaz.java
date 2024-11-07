@@ -5,13 +5,8 @@ import dominio.Contacto;
 import java.io.*;
 
 public class Interfaz implements Serializable {
-    private Libreta libreta;
-
-    public Interfaz() {
-        libreta = new Libreta();
-    }
-
-    public void procesarPeticion(String [] args) {
+    public static void ejecutar(String [] args) {
+        Libreta libreta= new Libreta();
         if (args[0].equalsIgnoreCase("add")) {
             if (args.length == 5) {
                 String nombre = args[1];
@@ -31,9 +26,15 @@ public class Interfaz implements Serializable {
         } else if (args[0].equalsIgnoreCase("help")) {
             System.out.println("Las operaciones posibles son las siguientes:");
             System.out.println("- Añadir contacto: 'java -jar libreta.jar add <nombre> <apellidos> <telefono> <email>'");
+            System.out.println("- Modificar un contacto: 'java -jar libreta.jar add <nuevo nombre> <nuevos apellidos> <nuevo telefono> <nuevo email>'");
+            System.out.println("- Eliminar contacto: 'java -jar libreta.jar add <nombre> <apellidos>");
             System.out.println("- Mostrar contactos: 'java -jar libreta.jar list'");
             System.out.println("- Mostrar esta ayuda: 'java -jar libreta.jar help'");
-        } else {
+        }else if (args[0].equalsIgnoreCase("remove")){
+            libreta.borrar(new Contacto(args[1],args[2]));
+        }else if (args[0].equalsIgnoreCase("modify")){
+
+        }else{
             System.out.println("Comando no reconocido. Usa 'help' para ver las instrucciones disponibles.");
         }
     }
