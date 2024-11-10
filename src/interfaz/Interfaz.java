@@ -26,8 +26,8 @@ public class Interfaz implements Serializable {
         } else if (args[0].equalsIgnoreCase("help")) {
             System.out.println("Las operaciones posibles son las siguientes:");
             System.out.println("- Añadir contacto: 'java -jar libreta.jar add <nombre> <apellidos> <telefono> <email>'");
-            System.out.println("- Modificar un contacto: 'java -jar libreta.jar add <nuevo nombre> <nuevos apellidos> <nuevo telefono> <nuevo email>'");
-            System.out.println("- Eliminar contacto: 'java -jar libreta.jar add <nombre> <apellidos>");
+            System.out.println("- Modificar un contacto: 'java -jar libreta.jar mofify <Nombre> <Apellidos> <nuevo telefono> <nuevo email>'");
+            System.out.println("- Eliminar contacto: 'java -jar libreta.jar remove <nombre> <apellidos>");
             System.out.println("- Mostrar contactos: 'java -jar libreta.jar list'");
             System.out.println("- Mostrar esta ayuda: 'java -jar libreta.jar help'");
         }else if (args[0].equalsIgnoreCase("remove")){
