@@ -39,29 +39,37 @@ public class Libreta{
         return false;
     }
     */
-    public boolean borrar(Contacto c){
+    public Libreta borrar(Contacto c)throws NoEncontradoException{
         if(contactos.contains(c)){
             contactos.remove(c);
             volcarContactos();
-            return true;
+            return this;
+        }else{
+            throw new NoEncontradoException(c);
         }
-        return false;
     }
 
-    public Libreta annadirContacto(Contacto contacto) {
-        contactos.add(contacto);
-        volcarContactos();
-        return this;
+    public Libreta annadirContacto(Contacto contacto)throws DuplicadoException {
+        if(contactos.contains(contacto)){
+            throw new DuplicadoException(contacto);
+        }else{    
+            contactos.add(contacto);
+            volcarContactos();
+            return this;
+        }
+    
     }
-    public boolean modificarContacto(String nombre, String apellidos, String nuevoTelefono, String nuevoEmail) {
+    public Libreta modificarContacto(String nombre, String apellidos, String nuevoTelefono, String nuevoEmail)throws NoEncontradoException {
         Contacto contacto = buscar(nombre, apellidos);
         if (contacto != null) { 
         contacto.setTelefono(nuevoTelefono);
         contacto.setEmail(nuevoEmail);
         volcarContactos();
-        return true;
-        } 
-    return false;
+        return this;
+        }else{
+            throw new NoEncontradoException();
+        }
+    
     } 
     public ArrayList<Contacto> getContactos(){
         return contactos;
